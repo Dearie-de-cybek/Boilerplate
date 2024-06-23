@@ -64,6 +64,7 @@
             @csrf
             <!-- Password Reset Token -->
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             
             <!-- Email Address -->
             <label for="email">Email</label>
