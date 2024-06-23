@@ -53,40 +53,9 @@ class NewPasswordController extends Controller
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        if ($status == Password::PASSWORD_RESET) {
-            return response()->json(['message' => 'Password reset successfully'], 200);
-        }
-    
-        // If there is an error, we will return a JSON response with the error message.
-        return response()->json(['error' => 'Failed to reset password'], 422);
-    }
-
-    public function submitResetPassword(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email|exists:users',
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required'
-        ]);
-
-        $updatePassword = DB::table('password_resets')
-                            ->where([
-                              'email' => $request->email, 
-                              'token' => $request->token
-                            ])
-                            ->first();
-
-        if(!$updatePassword){
-            return back()->withInput()->with('error', 'Invalid token!');
-        }
-
-        $user = User::where('email', $request->email)
-                    ->update(['password' => Hash::make($request->password)]);
-
-        DB::table('password_resets')->where(['email'=> $request->email])->delete();
-
-        return redirect('/login')->with('message', 'Password has been changed!');
+        return $status == Password::PASSWORD_RESET
+                    ? redirect()->route('login')->with('status', __($status))
+                    : back()->withInput($request->only('email'))
+                            ->withErrors(['email' => __($status)]);
     }
 }
-
-

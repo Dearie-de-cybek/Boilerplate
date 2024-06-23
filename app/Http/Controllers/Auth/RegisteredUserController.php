@@ -11,21 +11,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-
+use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
      */
-    
+    public function create(): View
+    {
+        return view('auth.register');
+    }
 
     /**
      * Handle an incoming registration request.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -39,17 +42,10 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-       
-
         event(new Registered($user));
+
         Auth::login($user);
 
-        $user->sendEmailVerificationNotification();
-
-        // Return a JSON response
-        return response()->json([
-            'message' => 'User registered successfully, Please verify your email',
-            'user' => $user,
-        ], 201);
+        return redirect(RouteServiceProvider::HOME);
     }
 }
