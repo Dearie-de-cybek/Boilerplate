@@ -60,7 +60,7 @@
 <body>
     <div class="container">
         <h2>Reset Password</h2>
-        <form method="POST" action="{{ route('password.update') }}">
+        <form action="{{ route('reset.password.post') }}" method="POST">
             @csrf
             <!-- Password Reset Token -->
             <input type="hidden" name="token" value="{{ $request->route('token') }}">

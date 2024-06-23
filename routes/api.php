@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PasswordUpdateController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -35,13 +37,11 @@ Route::middleware('auth:sanctum')->group(function () {
         $request->user()->sendEmailVerificationNotification();
         return response()->json(['message' => 'Verification link sent']);
     })->name('verification.send');
-
-    
-
-    
 });
 
 Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::post('/login', [LoginController::class, 'login']);
+
 Route::get('/verified', function () {
     return view('verified'); 
 })->name('verified');
@@ -52,5 +52,7 @@ Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
     ->name('password.reset');
 
     
-Route::post('/reset-password', [NewPasswordController::class, 'store']) 
-    ->name('password.update');
+// Route::post('/reset-password', [NewPasswordController::class, 'store']) 
+//     ->name('password.update');
+
+Route::post('/reset-password', [PasswordUpdateController::class, 'reset'])->name('reset.password.post');
