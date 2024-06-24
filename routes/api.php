@@ -51,5 +51,6 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
 Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
     ->name('password.reset');
 Route::post('/password-change', [PasswordUpdateController::class, 'reset'])->name('reset.password.post');
-// Route::post('/reset-password', [NewPasswordController::class, 'store']) 
-//     ->name('password.update');
+Route::get('/resetsuccess', function () {
+    return view('password-reset-success'); 
+})->name('resetsuccess');

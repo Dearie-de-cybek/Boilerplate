@@ -31,6 +31,14 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('phone_number');
+            $table->dropColumn('id_type');
+            $table->dropColumn('id_number');
+            $table->dropColumn('ssn');
+            $table->dropColumn('country');
+            $table->dropColumn('state');
+            $table->dropColumn('city');
+        });
     }
 };

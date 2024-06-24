@@ -49,5 +49,6 @@ class PasswordUpdateController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
+        return redirect()->route('resetsuccess');
     }
 }

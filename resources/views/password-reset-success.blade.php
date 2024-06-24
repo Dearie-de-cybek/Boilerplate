@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verification Success</title>
+    <title>Password Reset Success</title>
     <style>
 html, body {
     margin: 0;
@@ -30,7 +30,7 @@ html, body {
 
 .message p {
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.5;
     color: #333;
 }
@@ -40,7 +40,7 @@ html, body {
 <body>
     <div class="container">
         <div class="message">
-            <p>Your email has been Reset Successfully.</p>
+            <p>Your Password has been Reset Successfully.</p>
             <p>Kindly return to your app dashboard and login.</p>
         </div>
     </div>
