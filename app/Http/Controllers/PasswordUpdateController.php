@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class PasswordUpdateController extends Controller
 {
@@ -46,6 +49,5 @@ class PasswordUpdateController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('login')->with('status', 'Password updated successfully');
     }
 }
