@@ -54,3 +54,5 @@ Route::post('/password-change', [PasswordUpdateController::class, 'reset'])->nam
 Route::get('/resetsuccess', function () {
     return view('password-reset-success'); 
 })->name('resetsuccess');
+
+Route::post('/user-info', [UserInfoController::class, 'store'])->name('user.info.store');
