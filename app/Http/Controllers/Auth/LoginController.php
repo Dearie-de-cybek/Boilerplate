@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -10,8 +11,12 @@ use App\Models\User;
 
 class LoginController extends Controller
 {
-    
-
+    /**
+     * Handle user login.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
         $validateUser = $request->validate([
@@ -22,17 +27,12 @@ class LoginController extends Controller
         if (Auth::attempt($request->only(['email', 'password']))) {
             $user = Auth::user();
             
-            // Generate a unique token for the user
-            $token = $this->generateToken();
-    
-            // Store the token in the database
-            $user->update(['api_token' => $token]);
-    
-            // Return the token in the response
+            // Return the user ID and email in the response
             return response()->json([
                 'status' => true,
                 'message' => 'Login Success',
-                'token' => $token
+                'user_id' => $user->id,
+                'email' => $user->email
             ]);
         }
     
@@ -41,11 +41,4 @@ class LoginController extends Controller
             'message' => 'Invalid username or password'
         ], 401);
     }
-
-    protected function generateToken()
-{
-    return Str::random(60); 
-}
-
-   
 }

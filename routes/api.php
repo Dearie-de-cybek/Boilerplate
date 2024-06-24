@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PasswordUpdateController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -21,6 +22,9 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    
+
     // Email verification notice route
     Route::get('/email/verify', function () {
         return response()->json(['message' => 'Email verification required']);
@@ -55,4 +59,6 @@ Route::get('/resetsuccess', function () {
     return view('password-reset-success'); 
 })->name('resetsuccess');
 
-Route::post('/user-info', [UserInfoController::class, 'store'])->name('user.info.store');
+
+    
+Route::post('/user-info/{userId}', [UserInfoController::class, 'store'])->name('user.info.store');
