@@ -23,8 +23,6 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    
-
     // Email verification notice route
     Route::get('/email/verify', function () {
         return response()->json(['message' => 'Email verification required']);
