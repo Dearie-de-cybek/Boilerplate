@@ -47,6 +47,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/verified', function () {
     return view('verified'); 
 })->name('verified');
+
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
     ->name('password.email');
 
