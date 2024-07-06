@@ -36,7 +36,35 @@ class TransactionController extends Controller
             'createdAt' => $createdAt,
         ];
 
-        // Return the response as JSON
+        return response()->json($response, 200);
+    }
+
+    public function withdraw($userId, Request $request)
+    {
+        $request->validate([
+            'type' => 'required|string',
+            'amount' => 'required|numeric',
+        ]);
+
+        $user = User::find($userId);
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        // Create a new transaction
+        $invoiceNo = rand(100000, 999999);
+
+        $createdAt = $user->created_at->toDateTimeString();
+
+
+        $response = [
+            'invoice_no' => $invoiceNo,
+            'amount' => $request->amount,
+            'status' => 'pending',
+            'createdAt' => $createdAt,
+        ];
+
         return response()->json($response, 200);
     }
 }

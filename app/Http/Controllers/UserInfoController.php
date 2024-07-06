@@ -108,7 +108,7 @@ class UserInfoController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Documents uploaded successfully! Please complete your profile.',
+            'message' => 'Documents uploaded successfully!.',
             'data' => [
                 'id' => $user->id,
                 'uploadDoc' => $uploadDoc,

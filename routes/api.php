@@ -66,3 +66,4 @@ Route::post('/user-info/{userId}', [UserInfoController::class, 'store'])->name('
 Route::post('place-trade/{userId}', [TradeController::class, 'placeTrade']);
 Route::post('transactions/{userId}', [TransactionController::class, 'store']);
 Route::post('/upload-documents/{id}', [UserInfoController::class, 'uploadDocuments']);
+Route::post('transaction-withdraw/{userId}', [TransactionController::class, 'withdraw']);
