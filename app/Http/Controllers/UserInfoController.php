@@ -111,11 +111,6 @@ class UserInfoController extends Controller
             'message' => 'Documents uploaded successfully! Please complete your profile.',
             'data' => [
                 'id' => $user->id,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'email' => $user->email,
-                'pinCreated' => $pinCreated,
-                'updateInfo' => $updateInfo,
                 'uploadDoc' => $uploadDoc,
                 'userVerified' => $userVerified,
             ]
