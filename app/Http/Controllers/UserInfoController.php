@@ -18,7 +18,6 @@ class UserInfoController extends Controller
      */
     public function store(Request $request, int $userId)
     {
-        // Validate the request data
         $validator = Validator::make($request->all(), [
             'phone_number' => 'required|string|max:15',
             'id_type' => 'required|string|max:50',
@@ -36,10 +35,8 @@ class UserInfoController extends Controller
             ], 400);
         }
 
-        // Find the user by ID
         $user = User::find($userId);
 
-        // Check if user exists
         if (!$user) {
             return response()->json([
                 'status' => false,
@@ -47,7 +44,6 @@ class UserInfoController extends Controller
             ], 404);
         }
 
-        // Check if the user has already updated their information
         if ($user->phone_number || $user->id_type || $user->id_number || $user->ssn || $user->country || $user->state || $user->city) {
             return response()->json([
                 'status' => false,
@@ -55,7 +51,6 @@ class UserInfoController extends Controller
             ], 403);
         }
 
-        // Update user information
         $user->update([
             'phone_number' => $request->phone_number,
             'id_type' => $request->id_type,
@@ -66,7 +61,6 @@ class UserInfoController extends Controller
             'city' => $request->city,
         ]);
 
-        // Return the updated user data
         return response()->json([
             'status' => true,
             'message' => 'User information updated successfully.',

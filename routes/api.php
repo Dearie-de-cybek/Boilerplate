@@ -2,8 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TradeController;
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PasswordUpdateController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -61,3 +63,5 @@ Route::get('/resetsuccess', function () {
 
     
 Route::post('/user-info/{userId}', [UserInfoController::class, 'store'])->name('user.info.store');
+Route::post('place-trade/{userId}', [TradeController::class, 'placeTrade']);
+Route::post('transactions/{userId}', [TransactionController::class, 'store']);

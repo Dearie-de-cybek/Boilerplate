@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->decimal('total_balance', 15, 2);
+            $table->decimal('total_balance', 15, 2)->default(0.00);
         });
     }
 
@@ -27,8 +27,6 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('total_balance');
-
-            $table->decimal('total_balance', 15, 2)->default(0.00);
         });
     }
 };
