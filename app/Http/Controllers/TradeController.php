@@ -26,12 +26,14 @@ class TradeController extends Controller
 
         $createdAt = $user->created_at->toDateTimeString();
 
+        $status = $user->status;
+
         $response = [
             'invoice_no' => $invoiceNo,
             'type' => $request->type,
             'assets' => $request->assets,
             'price' => $request->price,
-            'status' => 'completed',
+            'status' => $status,
             'createdAt' => $createdAt,
             'user' => [
                 'id' => $user->id,
