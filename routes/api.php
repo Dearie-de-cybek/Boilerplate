@@ -65,3 +65,4 @@ Route::get('/resetsuccess', function () {
 Route::post('/user-info/{userId}', [UserInfoController::class, 'store'])->name('user.info.store');
 Route::post('place-trade/{userId}', [TradeController::class, 'placeTrade']);
 Route::post('transactions/{userId}', [TransactionController::class, 'store']);
+Route::post('/upload-documents/{id}', [UserInfoController::class, 'uploadDocuments']);

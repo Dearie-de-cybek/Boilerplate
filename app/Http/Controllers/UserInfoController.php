@@ -67,4 +67,58 @@ class UserInfoController extends Controller
             'user' => $user,
         ], 200);
     }
+
+    public function uploadDocuments(Request $request, $userId)
+    {
+        $validator = Validator::make($request->all(), [
+            'id_front_photo' => 'required|file|max:5000|image',
+            'id_back_photo' => 'required|file|max:5000|image',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation Error',
+                'errors' => $validator->errors()
+            ], 401);
+        }
+
+        $user = User::find($userId);
+
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'User not found'
+            ], 404);
+        }
+
+        if ($user->id_front_photo || $user->id_back_photo) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Documents already uploaded'
+            ], 400);
+        }
+
+        $user->id_front_photo = $request->file('id_front_photo')->store('public');
+        $user->id_back_photo = $request->file('id_back_photo')->store('public');
+        $uploadDoc = true;
+       $userVerified = true; 
+        
+        $user->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Documents uploaded successfully! Please complete your profile.',
+            'data' => [
+                'id' => $user->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'pinCreated' => $pinCreated,
+                'updateInfo' => $updateInfo,
+                'uploadDoc' => $uploadDoc,
+                'userVerified' => $userVerified,
+            ]
+        ]);
+    }
 }
