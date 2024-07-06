@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->decimal('total_balance', 15, 2);
+            $table->decimal('usdt_balance', 15, 2)->default(0.00);
+            $table->decimal('eth_balance', 15, 2)->default(0.00);
+            $table->decimal('btc_balance', 15, 2)->default(0.00);
+            $table->string('type')->nullable();
+            $table->string('assets')->nullable();
+            $table->decimal('price', 15, 2)->nullable();
         });
     }
 
@@ -26,9 +31,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('total_balance');
-
-            $table->decimal('total_balance', 15, 2)->default(0.00);
+            $table->dropColumn(['usdt_balance', 'eth_balance', 'btc_balance', 'type', 'assets', 'price']);
         });
     }
 };
