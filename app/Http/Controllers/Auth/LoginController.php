@@ -27,7 +27,6 @@ class LoginController extends Controller
         if (Auth::attempt($request->only(['email', 'password']))) {
             $user = Auth::user();
             
-            // Return the user ID and email in the response
             return response()->json([
                 'status' => true,
                 'message' => 'Login Success',

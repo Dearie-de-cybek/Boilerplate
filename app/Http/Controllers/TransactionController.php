@@ -30,9 +30,10 @@ class TransactionController extends Controller
 
         $response = [
             'invoice_no' => $invoiceNo,
-            'type' => $request->type,
-            'method' => $request->method,
             'amount' => $request->amount,
+            'status' => 'pending',
+            'method' => $request->method,
+            'type' => $request->type,
             'createdAt' => $createdAt,
         ];
 
@@ -62,7 +63,6 @@ class TransactionController extends Controller
             'invoice_no' => $invoiceNo,
             'amount' => $request->amount,
             'status' => 'pending',
-            'createdAt' => $createdAt,
         ];
 
         return response()->json($response, 200);

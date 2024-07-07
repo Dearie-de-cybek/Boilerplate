@@ -22,24 +22,26 @@ class TradeController extends Controller
             return response()->json(['error' => 'User not found'], 404);
         }
 
+        if ($user->total_balance < $request->price) {
+            return response()->json(['error' => 'Insufficient balance'], 400);
+        }
+
          $invoiceNo = rand(100000, 999999);
+
+         $user->total_balance -= $request->price;
+        $user->save();
 
         $createdAt = $user->created_at->toDateTimeString();
 
-        $status = $user->status;
+        
 
         $response = [
             'invoice_no' => $invoiceNo,
             'type' => $request->type,
             'assets' => $request->assets,
             'price' => $request->price,
-            'status' => $status,
+            'status' => 'Pending',
             'createdAt' => $createdAt,
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-            ],
         ];
 
         return response()->json($response, 200);
