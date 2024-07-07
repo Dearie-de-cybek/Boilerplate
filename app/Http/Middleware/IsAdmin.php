@@ -15,7 +15,15 @@ class IsAdmin
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {
-        return $next($request);
+{
+    $token = $request->header('Authorization');
+    if (!$token || !auth()->authenticate($token)) {
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
+    $user = auth()->user();
+    if (!$user->is_admin) {
+        return response()->json(['error' => 'Forbidden'], 403);
+    }
+    return $next($request);
+}
 }
