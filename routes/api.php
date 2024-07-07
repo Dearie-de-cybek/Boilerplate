@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TradeController;
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\Auth\LoginController;
@@ -67,3 +68,7 @@ Route::post('place-trade/{userId}', [TradeController::class, 'placeTrade']);
 Route::post('transactions/{userId}', [TransactionController::class, 'store']);
 Route::post('/upload-documents/{id}', [UserInfoController::class, 'uploadDocuments']);
 Route::post('transaction-withdraw/{userId}', [TransactionController::class, 'withdraw']);
+
+Route::get('/admin/users', [AdminController::class, 'getAllUsers']);
+Route::post('/admin/login', [AdminController::class, 'adminLogin']);
+Route::post('/admin/users/{user_id}', [AdminController::class, 'updateUser']);

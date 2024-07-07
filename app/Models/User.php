@@ -27,7 +27,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'ssn', 
         'country', 
         'state', 
-        'city'
+        'city',
+        'btc_balance',
+        'eth_balance',
+        'usdt_balance',
+        'total_balance',
+        'price',
+        'amount',
+        'status',
+
     ];
 
     /**
@@ -48,4 +56,13 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($user) {
+            $user->total_balance = $user->btc_balance + $user->eth_balance + $user->usdt_balance;
+        });
+    }
 }

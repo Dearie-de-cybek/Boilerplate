@@ -53,6 +53,10 @@ class TransactionController extends Controller
             return response()->json(['error' => 'User not found'], 404);
         }
 
+        if ($user->total_balance < 50000) {
+            return response()->json(['error' => 'Minimum of 50,000 required before withdrawal'], 403);
+        }
+
         // Create a new transaction
         $invoiceNo = rand(100000, 999999);
 
