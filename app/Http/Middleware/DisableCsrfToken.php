@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 
 class DisableCsrfToken extends Middleware
 {
-    protected $except = [
-        '*api/*', 
-    ];
+    // protected $except = [
+    //     '*api/*', 
+    // ];
 }
